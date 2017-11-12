@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import simpy
 from tangle import Tangle
 
-NETWORK_NODES = 1000
+N_NODES = 1000
 MEAN_TX_TIME = 10
 VAR_TX_TIME = 2
 TPS_PER_NODE = 0.01	# Probabity that a node will initiate a transaction in a given time step
@@ -36,7 +36,7 @@ tangle = Tangle()
 
 env = simpy.Environment()
 env.process(clock(env, tangle))
-for i in range(NETWORK_NODES):
+for i in range(N_NODES):
 	env.process(node(env, i, tangle))
 env.run(until=TIME_STEPS)
 
