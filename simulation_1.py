@@ -1,7 +1,6 @@
 from math import ceil
 from random import random, gauss
 
-import matplotlib.pyplot as plt
 import networkx as nx
 
 import simpy
@@ -16,11 +15,11 @@ CONNECTIONS_PER_NODE = 8
 
 N_TRANSACTIONS_TO_BROADCAST = 5
 
-TIME_STEPS = 1000
+TIME_STEPS = 500
 
 def clock(env):
 	while True:
-		print(env.now)
+		print("Executing step #{t}...".format(t=env.now))
 		yield env.timeout(1)
 
 def step(env, tangle):
@@ -79,8 +78,10 @@ for i in range(N_NODES):
 	env.process(node(env, i, global_tangle, local_tangle, income, outgo, communications))
 env.run(until=TIME_STEPS)
 
-
+"""
+import matplotlib.pyplot as plt
 _, uctps = zip(*sorted(global_tangle.log['uctps'].items()))
 plt.plot(uctps)
 plt.title("Tips per time step")
 plt.show()
+"""
